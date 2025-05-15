@@ -9,239 +9,610 @@
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="food.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for Tailwind */
+        .hover\:underline-orange:hover {
+            text-decoration: underline;
+            text-decoration-color: #f97316;
+        }
+        .bg-orange {
+            background-color: #f97316;
+        }
+        .text-orange {
+            color: #f97316;
+        }
+        .border-orange {
+            border-color: #ffa94d;
+        }
+        .shadow-orange {
+            box-shadow: 0 0 30px rgba(255, 165, 0, 0.2);
+        }
+        /* Animation styles to match food.js */
+        .img-header {
+            transform: translateX(500px);
+            opacity: 0;
+            transition: all 1s ease-out;
+        }
+        .img-header.animate {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        .healthy-img {
+            transform: translateX(-300px);
+            opacity: 0;
+            transition: all 1s ease-out;
+        }
+        .healthy-img.animate {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        .chef-image {
+            transform: translateX(200px);
+            opacity: 0;
+            transition: transform 1s ease-out, opacity 1s ease-out;
+        }
+        .chef-image.animate {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        /* Ensure icon visibility */
+        .fa-bag-shopping, .fa-bars {
+            display: inline-block;
+            line-height: 1;
+        }
+        /* Navbar toggle animation */
+        .nav-links {
+            transition: all 0.3s ease-in-out;
+        }
+        /* Mobile menu styles */
+        .nav-links-mobile {
+            position: fixed;
+            top: 3.5rem;
+            left: 0;
+            width: 100%;
+            background: white;
+            flex-direction: column;
+            padding: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        .nav-links-mobile.active {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+        /* Testimonial card styles */
+        #testimonial-card {
+            cursor: grab;
+            user-select: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+        }
+        #testimonial-card img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+        }
+        .feedback {
+            color: #5A5959;
+            font-style: italic;
+            text-align: center;
+        }
+        .role {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            background-color: #d1d1d1;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        .dot.active {
+            background-color: #f97316;
+        }
+        /* Remove horizontal scrollbar */
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+        /* Navbar specific styles */
+        nav {
+            width: 100%;
+            padding: 0;
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 0 2rem; /* Default padding for larger screens */
+            box-sizing: border-box;
+        }
+        .nav-logo {
+            flex-shrink: 0;
+        }
+        .nav-links-container {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+        }
+        .nav-icon {
+            flex-shrink: 0;
+        }
+        /* Responsive adjustments for iPad Mini and smaller tablets (768px and below) */
+        @media (max-width: 768px) {
+            .md\:ml-40, .md\:mr-40 {
+                margin-left: 0.5rem; /* Reduced margin for iPad Mini */
+                margin-right: 0.5rem;
+            }
+            .md\:text-\[50px\] {
+                font-size: 2.25rem;
+                line-height: 2.5rem;
+            }
+            .md\:text-\[32px\] {
+                font-size: 1.75rem;
+                line-height: 2.25rem;
+            }
+            .md\:text-\[40px\] {
+                font-size: 2rem;
+                line-height: 2.5rem;
+            }
+            .md\:text-\[16px\] {
+                font-size: 1rem;
+            }
+            /* Keep some sections as flex-row for iPad Mini */
+            .md\:flex-row {
+                flex-direction: row;
+            }
+            .md\:w-1\/2 {
+                width: 50%;
+            }
+            .md\:text-left {
+                text-align: left;
+            }
+            .img-header {
+                width: 100%;
+                max-width: 300px;
+                height: 300px;
+                background-size: contain;
+                margin: 0 auto;
+            }
+            .healthy-img {
+                width: 100%;
+                max-width: 250px;
+                height: 250px;
+                background-size: contain;
+                margin: 0 auto;
+            }
+            .chef-image {
+                width: 100%;
+                max-width: 250px;
+                height: 250px;
+                margin: 0 auto;
+            }
+            .chef-image div {
+                width: 100%;
+                max-width: 250px;
+                height: 250px;
+                background-size: contain;
+                margin: 0 auto;
+            }
+            .chef-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+            .md\:w-\[350px\] {
+                width: 100%;
+                max-width: 320px;
+                margin: 0 auto;
+            }
+            .md\:w-\[300px\] {
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+            .md\:p-8 {
+                padding: 2rem;
+            }
+            .md\:leading-\[80px\] {
+                line-height: 3rem;
+            }
+            .md\:h-\[540px\] {
+                height: 300px;
+            }
+            .md\:h-\[350px\] {
+                height: 250px;
+            }
+            /* Navigation adjustments */
+            #nav-links {
+                display: flex;
+            }
+            .nav-links-mobile {
+                display: none;
+            }
+            #menu-bar {
+                display: none !important;
+            }
+            /* Ensure navbar fits and takes full width */
+            .nav-container {
+                padding: 0 1rem; /* Reduced padding for iPad Mini */
+            }
+            .nav-icon {
+                margin-right: 0.5rem;
+            }
+            .nav-logo {
+                margin-left: 0.5rem;
+            }
+            .nav-links-container ul {
+                gap: 0.5rem;
+                padding: 0;
+                margin: 0;
+            }
+            .nav-links-container li {
+                font-size: 0.85rem;
+                margin: 0 4px;
+            }
+            /* Testimonial card adjustments */
+            #testimonial-card {
+                padding: 1rem;
+            }
+            #testimonial-card img {
+                width: 55px;
+                height: 55px;
+            }
+            .feedback {
+                font-size: 1rem;
+                line-height: 1.5rem;
+            }
+            .role {
+                font-size: 0.875rem;
+            }
+        }
+        /* Adjustments for smaller phones (below 640px) */
+        @media (max-width: 640px) {
+            .text-4xl {
+                font-size: 1.5rem;
+            }
+            .text-3xl {
+                font-size: 1.25rem;
+            }
+            .text-2xl {
+                font-size: 1.125rem;
+            }
+            .w-\[150px\] {
+                width: 120px;
+            }
+            .h-\[41px\] {
+                height: 36px;
+            }
+            .text-\[22px\] {
+                font-size: 1rem;
+            }
+            .text-\[25px\] {
+                font-size: 1.125rem;
+            }
+            .text-\[20px\] {
+                font-size: 0.875rem;
+            }
+            .text-\[15px\] {
+                font-size: 0.75rem;
+            }
+            .max-w-\[1200px\] {
+                max-width: 100%;
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+            .max-w-\[650px\] {
+                max-width: 100%;
+            }
+            .gap-20 {
+                gap: 1rem;
+            }
+            footer .grid {
+                grid-template-columns: 1fr;
+            }
+            /* Revert to column layout for smaller screens */
+            .md\:flex-row {
+                flex-direction: column;
+            }
+            .md\:w-1\/2 {
+                width: 100%;
+            }
+            .md\:text-left {
+                text-align: center;
+            }
+            .img-header {
+                max-width: 250px;
+                height: 250px;
+            }
+            .healthy-img {
+                max-width: 200px;
+                height: 200px;
+            }
+            .chef-image {
+                max-width: 200px;
+                height: 200px;
+            }
+            .chef-image div {
+                max-width: 200px;
+                height: 200px;
+            }
+            .md\:w-\[350px\] {
+                max-width: 300px;
+            }
+            .md\:w-\[300px\] {
+                max-width: 280px;
+            }
+            .md\:p-8 {
+                padding: 1rem;
+            }
+            .md\:h-\[540px\] {
+                height: 250px;
+            }
+            .md\:h-\[350px\] {
+                height: 200px;
+            }
+            /* Show mobile menu for smaller screens */
+            #nav-links {
+                display: none;
+            }
+            .nav-links-mobile {
+                display: flex;
+            }
+            #menu-bar {
+                display: block !important;
+            }
+            .nav-icon {
+                margin-right: 0.5rem;
+            }
+            .nav-logo {
+                margin-left: 0.5rem;
+            }
+            .nav-container {
+                padding: 0 0.5rem; /* Even smaller padding for phones */
+            }
+        }
+        /* Adjustments for laptop screens (1024px and above) */
+        @media (min-width: 1024px) {
+            .nav-container {
+                padding: 0 3rem; /* Larger padding for laptop screens */
+            }
+        }
+    </style>
 </head>
 
-<body>
-    <div class="navbar">
-        <div class="logo">Food<span>man</span></div>
-        <div class="list">
-            <ul>
-                <li><a href="#home">Home</a> </li>
-                <li> <a href="#special">Special</a></li>
-                <li> <a href="#chef">Chef</a> </li>
-                <li><a href="#clients">Clients</a></li>
-                <li><a href="#contact">Contact us</a></li>
-            </ul>
-        </div>
-        <div class="nav-icon">
-            <i class="fa-solid fa-bag-shopping"></i>
-        </div>
-    </div>
-
-    <div id="home" class="boxs ">
-        <div class="box1">
-            <div class="big-text">
-                Meet,Eat &<br> Enjoy The <span>True</span> <br> <span>Taste</span>.
-
+<body class="overflow-x-hidden m-0 p-0 font-poppins">
+    <nav class="w-full h-14">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <div class="text-4xl text-orange-400 font-bold md:ml-40">Food<span class="text-black">man</span></div>
             </div>
-            <div class="small-text">
-                Discover the true essence of culinary delight as you <br>meet, eat ,and savar the authentic flavors that
+            <div class="nav-links-container">
+                <ul id="nav-links" class="md:flex hidden flex-row font-semibold items-center gap-4">
+                    <li class="mx-[10px] cursor-pointer text-black hover:text-orange-400 hover:underline-orange"><a href="#home">Home</a></li>
+                    <li class="mx-[10px] cursor-pointer text-black hover:text-orange-400 hover:underline-orange"><a href="#special">Special</a></li>
+                    <li class="mx-[10px] cursor-pointer text-black hover:text-orange-400 hover:underline-orange"><a href="#chef">Chef</a></li>
+                    <li class="mx-[10px] cursor-pointer text-black hover:text-orange-400 hover:underline-orange"><a href="#clients">Clients</a></li>
+                    <li class="mx-[10px] cursor-pointer text-black hover:text-orange-400 hover:underline-orange"><a href="#contact">Contactus</a></li>
+                </ul>
+                <ul id="nav-links-mobile" class="nav-links nav-links-mobile md:hidden flex">
+                    <li class="mx-[10px] py-2 cursor-pointer text-black hover:text-orange-400 hover:underline-orange"><a href="#home">Home</a></li>
+                    <li class="mx-[10px] py-2 cursor-pointer text-black hover:text-orange-400 hover:underline-orange"><a href="#special">Special</a></li>
+                    <li class="mx-[10px] py-2 cursor-pointer text-black hover:text-orange-400 hover:underline-orange"><a href="#chef">Chef</a></li>
+                    <li class="mx-[10px] py-2 cursor-pointer text-black hover:text-orange-400 hover:underline-orange"><a href="#clients">Clients</a></li>
+                    <li class="mx-[10px] py-2 cursor-pointer text-black hover:text-orange-400 hover:underline-orange"><a href="#contact">Contactus</a></li>
+                </ul>
+            </div>
+            <div class="nav-icon">
+                <div class="flex items-center md:mr-40">
+                    <i class="fa-solid fa-bag-shopping text-[17px] text-white bg-orange-400 p-2 rounded-full hover:text-[20px] transition-all"></i>
+                </div>
+            </div>
+            <div class="md:hidden">
+                <a href="#" id="menu-bar" class="text-4xl text-black">☰</a>
+            </div>
+        </div>
+    </nav>
+
+    <div id="home" class="flex flex-col md:flex-row w-full max-w-[1200px] mx-auto mt-8 px-4">
+        <div class="w-full md:w-1/2">
+            <h1 class="text-3xl md:text-[50px] font-bold leading-tight md:leading-[80px] mt-8 font-['Segoe_UI',Tahoma,Geneva,Verdana,sans-serif] text-center md:text-left">
+                Meet, Eat &<br> Enjoy The <span class="text-orange">True</span> <br> <span class="text-orange">Taste</span>.
+            </h1>
+            <p class="text-[#5A5959] font-semibold text-base md:text-[16px] mt-6 leading-[25px] font-['Segoe_UI',Tahoma,Geneva,Verdana,sans-serif] text-center md:text-left">
+                Discover the true essence of culinary delight as you <br>meet, eat, and savor the authentic flavors that
                 define <br> our passion for food.
+            </p>
+            <div class="mt-6 text-center md:text-left">
+                <button class="bg-orange text-white w-[150px] h-[41px] text-[22px] font-semibold rounded-[10px] border-none hover:bg-[#e66a00] transition-colors">Get started</button>
             </div>
-            <div class="btns">
-                <button class="btn1">Get started</button>
-            </div>
-
         </div>
-        <div class="box2">
-            <div class="img-header"></div>
+        <div class="w-full md:w-1/2 mt-8 md:mt-0">
+            <div class="img-header w-full h-[420px] md:h-[540px] bg-[url('./images-food/header.png')] bg-contain bg-no-repeat mx-auto rounded-full"></div>
         </div>
     </div>
 
-    <div id="special" class="dish-card ">
-        <div class="dish-big-text">Our Special Dish</div>
-        <div class="dish-small-text">Each dish promises an unforgettable dining experience,blending <br><span>innovation
-                with tradition to delight your senses.</span> </div>
-        <div class="dish-card-box">
-            <div class="dish-card1">
-                <div class="dish-img"
-                    style="background-image: url('/chai aur code practices/food landingpage task/images-food/special-1.png');">
-                </div>
-                <div class="dish-heading-text">Veg Curry </div>
-                <div class="dish-description">Diced simmered in aromatic curry <br> sauce with mixed veggies like
-                    <br>potatoes,cauliflower, and beans for a <br>hearty,flavorful dish
-                </div>
-                <div class="dish-rating">⭐⭐⭐⭐⭐</div>
-                <div class="dish-price-button">
-                    <div class="dish-price">₹ 200</div>
-                    <button class="dish-button">Add to Card</button>
-                </div>
-            </div>
-
-            <div class="dish-card1">
-                <div class="dish-img"
-                    style="background-image: url('/chai aur code practices/food landingpage task/images-food/special-2.png');">
-                </div>
-                <div class="dish-heading-text">Veg Stir-Fry</div>
-                <div class="dish-description">Diced simmered in aromatic curry <br> sauce with mixed veggies like
-                    <br>potatoes,cauliflower, and beans for a <br>hearty,flavorful dish
-                </div>
-                <div class="dish-rating">⭐⭐⭐⭐⭐</div>
-                <div class="dish-price-button">
-                    <div class="dish-price">₹ 250</div>
-                    <button class="dish-button">Add to Card</button>
+    <div id="special" class="w-full max-w-[1200px] mx-auto mt-8 px-4">
+        <h2 class="text-3xl md:text-[50px] font-bold leading-tight md:leading-[80px] text-center font-['Segoe_UI',Tahoma,Geneva,Verdana,sans-serif]">Our Special Dish</h2>
+        <p class="text-[#5A5959] font-semibold text-base md:text-[16px] mt-4 text-center leading-[25px] font-['Segoe_UI',Tahoma,Geneva,Verdana,sans-serif]">
+            Each dish promises an unforgettable dining experience, blending <br> innovation with tradition to delight your senses.
+        </p>
+        <div class="flex flex-col md:flex-row gap-6 mt-6 justify-center">
+            <div class="w-full md:w-[350px] bg-white p-6 rounded-[20px] text-center hover:-translate-y-[8px] transition-transform">
+                <div class="w-[150px] h-[150px] rounded-full bg-[url('./images-food/special-1.png')] bg-contain bg-no-repeat mx-auto"></div>
+                <h3 class="text-2xl md:text-[25px] font-bold mt-4 font-['Segoe_UI',Tahoma,Geneva,Verdana,sans-serif]">Veg Curry</h3>
+                <p class="text-[#5A5959] text-sm md:text-[15px] font-medium mt-2 font-['Segoe_UI',Tahoma,Geneva,Verdana,sans-serif]">
+                    A creamy blend of spices and coconut milk, <br> with tender potatoes, cauliflower, and beans, <br> creating a rich and aromatic curry experience.
+                </p>
+                <p class="text-lg md:text-[20px] font-semibold mt-2 text-[#5A5959] font-['Segoe_UI',Tahoma,Geneva,Verdana,sans-serif]">⭐⭐⭐⭐⭐</p>
+                <div class="flex justify-center items-center mt-4 gap-4">
+                    <p class="text-2xl md:text-[25px] font-semibold text-black font-['Segoe_UI',Tahoma,Geneva,Verdana,sans-serif]">₹ 200</p>
+                    <button class="bg-orange text-white w-[150px] h-[41px] text-[22px] font-light rounded-[10px] border-none cursor-pointer hover:bg-[#e66a00] transition-colors">Add to Cart</button>
                 </div>
             </div>
-            <div class="dish-card1">
-                <div class="dish-img"
-                    style="background-image: url('/chai aur code practices/food landingpage task/images-food/special-3.png');">
+            <div class="w-full md:w-[350px] bg-white p-6 rounded-[20px] text-center hover:-translate-y-[8px] transition-transform">
+                <div class="w-[150px] h-[150px] rounded-full bg-[url('./images-food/special-2.png')] bg-contain bg-no-repeat mx-auto"></div>
+                <h3 class="text-2xl md:text-[25px] font-bold mt-4 font-['Segoe_UI',Tahoma,Geneva,Verdana,sans-serif]">Veg Stir-Fry</h3>
+                <p class="text-[#5A5959] text-sm md:text-[15px] font-medium mt-2 font-['Segoe_UI',Tahoma,Geneva,Verdana,sans-serif]">
+                    Fresh vegetables sautéed in a savory soy-ginger sauce, <br> with crisp bell peppers, broccoli, and snap peas, <br> delivering a vibrant and crunchy texture in every bite.
+                </p>
+                <p class="text-lg md:text-[20px] font-semibold mt-2 text-[#5A5959] font-['Segoe_UI',Tahoma,Geneva,Verdana,sans-serif]">⭐⭐⭐⭐⭐</p>
+                <div class="flex justify-center items-center mt-4 gap-4">
+                    <p class="text-2xl md:text-[25px] font-semibold text-black font-['Segoe_UI',Tahoma,Geneva,Verdana,sans-serif]">₹ 250</p>
+                    <button class="bg-orange text-white w-[150px] h-[41px] text-[22px] font-light rounded-[10px] border-none cursor-pointer hover:bg-[#e66a00] transition-colors">Add to Cart</button>
                 </div>
-                <div class="dish-heading-text">Veg Pasta</div>
-                <div class="dish-description">Diced simmered in aromatic curry <br> sauce with mixed veggies like
-                    <br>potatoes,cauliflower, and beans for a <br>hearty,flavorful dish
-                </div>
-                <div class="dish-rating">⭐⭐⭐⭐⭐</div>
-                <div class="dish-price-button">
-                    <div class="dish-price">₹ 350</div>
-                    <button class="dish-button">Add to Card</button>
+            </div>
+            <div class="w-full md:w-[350px] bg-white p-6 rounded-[20px] text-center hover:-translate-y-[8px] transition-transform">
+                <div class="w-[150px] h-[150px] rounded-full bg-[url('./images-food/special-3.png')] bg-contain bg-no-repeat mx-auto"></div>
+                <h3 class="text-2xl md:text-[25px] font-bold mt-4 font-['Segoe_UI',Tahoma,Geneva,Verdana,sans-serif]">Veg Pasta</h3>
+                <p class="text-[#5A5959] text-sm md:text-[15px] font-medium mt-2 font-['Segoe_UI',Tahoma,Geneva,Verdana,sans-serif]">
+                    Al dente pasta tossed in a rich tomato-basil sauce, <br> with roasted zucchini, mushrooms, and spinach, <br> topped with a sprinkle of parmesan for a comforting meal.
+                </p>
+                <p class="text-lg md:text-[20px] font-semibold mt-2 text-[#5A5959] font-['Segoe_UI',Tahoma,Geneva,Verdana,sans-serif]">⭐⭐⭐⭐⭐</p>
+                <div class="flex justify-center items-center mt-4 gap-4">
+                    <p class="text-2xl md:text-[25px] font-semibold text-black font-['Segoe_UI',Tahoma,Geneva,Verdana,sans-serif]">₹ 350</p>
+                    <button class="bg-orange text-white w-[150px] h-[41px] text-[22px] font-light rounded-[10px] border-none cursor-pointer hover:bg-[#e66a00] transition-colors">Add to Cart</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="healthy-food ">
-        <div class="healthy-part1">
-            <div class="healthy-img">
-            </div>
+    <div class="flex flex-col md:flex-row items-center justify-center w-full max-w-[1200px] mx-auto p-4 md:p-8">
+        <div class="w-full md:w-1/2 flex justify-center items-center mt-4 md:mt-0">
+            <div class="healthy-img w-[300px] md:w-[350px] h-[300px] md:h-[350px] bg-[url('./images-food/explore.png')] bg-contain bg-no-repeat rounded-[90px] bg-center mx-auto"></div>
         </div>
-        <div class="healthy-part2">
-            <div class="healthy-heading">We serve Healthy & <br> Tasty Food </div>
-            <div class="healthy-description">indulge guilt-free with our commitment to serving wholesome and
-                <br>delicious meals.Explore a menu curated to balance taste and <br>nutrition,ensuring every bite is
-                both satisfying and nourishing.
-            </div>
-            <div class="healthy btn"><button class="healthy-btn1">Explore story </button></div>
+        <div class="w-full md:w-1/2 p-4 md:p-8 text-center md:text-left">
+            <h2 class="text-3xl md:text-[50px] font-extrabold text-[#1a1a1a] mb-4 leading-tight">
+                We serve Healthy & <br> Tasty Food
+            </h2>
+            <p class="text-[#666] text-base md:text-[16px] leading-[1.8] mb-6">
+                Indulge guilt-free with our commitment to serving wholesome and <br> delicious meals. Explore a menu curated to balance taste and <br> nutrition, ensuring every bite is both satisfying and nourishing.
+            </p>
+            <button class="bg-orange text-white border-none py-3 px-6 text-[16px] font-semibold rounded-[8px] hover:bg-[#e66a00] transition-colors">Explore story</button>
         </div>
     </div>
 
-    <div id="clients" class="food-details-card ">
-
-        <div class="detail-card">
-            <div class="icon green">
+    <div id="clients" class="flex flex-col md:flex-row gap-6 md:gap-20 p-4 md:p-8 w-full max-w-[1200px] mx-auto">
+        <div class="bg-white rounded-[25px] shadow-[0_4px_30px_rgba(0,0,0,0.05)] p-6 w-full md:w-[300px] transition-transform duration-300 hover:-translate-y-[8px]">
+            <div class="w-[55px] h-[55px] rounded-[15px] flex justify-center items-center text-[24px] font-semibold text-white bg-[#34c759] shadow-[0_0_20px_rgba(52,199,89,0.5)] mb-4">
                 <i class="fas fa-utensils"></i>
             </div>
-            <h2 class="detail-card-heading">Order Your Food</h2>
-            <p class="detail-card-description">Seamlessly place your food orders online with just a few clicks. Enjoy
-                convenience and efficiency as you select from our diverse menu of delectable dishes.online with just a
-                few clicks</p>
-            <a class="detail-btn" href="#">Read more <span>→</span></a>
+            <h3 class="text-[20px] font-semibold text-black mb-2">Order Your Food</h3>
+            <p class="text-[14px] text-[#6b7280] leading-[1.6] mb-4">
+                Seamlessly place your food orders online with just a few clicks. Enjoy convenience and efficiency as you select from our diverse menu of delectable dishes.
+            </p>
+            <a class="text-orange text-[14px] font-medium flex items-center no-underline hover:underline-orange" href="#">Read more <span class="ml-1 text-[16px]">→</span></a>
         </div>
-
-        <div class="detail-card">
-            <div class="icon pink">
+        <div class="bg-white rounded-[25px] shadow-[0_4px_30px_rgba(0,0,0,0.05)] p-6 w-full md:w-[300px] transition-transform duration-300 hover:-translate-y-[8px]">
+            <div class="w-[55px] h-[55px] rounded-[15px] flex justify-center items-center text-[24px] font-semibold text-white bg-[#ff2d55] shadow-[0_0_20px_rgba(255,45,85,0.5)] mb-4">
                 <i class="fas fa-truck"></i>
             </div>
-            <h2 class="detail-card-heading">Pick Your Food</h2>
-            <p class="detail-card-description">Customize your dining experience by choosing from a tantalizing array of
-                options. For savory, sweet, or in between craving, find the perfect meal to satisfy your appetite.</p>
-            <a class="detail-btn" href="#">Read more <span>→</span></a>
+            <h3 class="text-[20px] font-semibold text-black mb-2">Pick Your Food</h3>
+            <p class="text-[14px] text-[#6b7280] leading-[1.6] mb-4">
+                Customize your dining experience by choosing from a tantalizing array of options. For savory, sweet, or in-between cravings, find the perfect meal to satisfy your appetite.
+            </p>
+            <a class="text-orange text-[14px] font-medium flex items-center no-underline hover:underline-orange" href="#">Read more <span class="ml-1 text-[16px]">→</span></a>
         </div>
-
-        <div class="detail-card">
-            <div class="icon blue">
+        <div class="bg-white rounded-[25px] shadow-[0_4px_30px_rgba(0,0,0,0.05)] p-6 w-full md:w-[300px] transition-transform duration-300 hover:-translate-y-[8px]">
+            <div class="w-[55px] h-[55px] rounded-[15px] flex justify-center items-center text-[24px] font-semibold text-white bg-[#007aff] shadow-[0_0_20px_rgba(0,122,255,0.5)] mb-4">
                 <i class="fas fa-star"></i>
             </div>
-            <h2 class="detail-card-heading">Enjoy Your Food</h2>
-            <p class="detail-card-description">Sit back, relax, and savor the flavors as your meticulously prepared meal
-                arrives. Delight in the deliciousness of every bite, knowing that your satisfaction is our top priority.
+            <h3 class="text-[20px] font-semibold text-black mb-2">Enjoy Your Food</h3>
+            <p class="text-[14px] text-[#6b7280] leading-[1.6] mb-4">
+                Sit back, relax, and savor the flavors as your meticulously prepared meal arrives. Delight in the deliciousness of every bite, knowing that your satisfaction is our top priority.
             </p>
-            <a class="detail-btn" href="#">Read more <span>→</span></a>
+            <a class="text-orange text-[14px] font-medium flex items-center no-underline hover:underline-orange" href="#">Read more <span class="ml-1 text-[16px]">→</span></a>
         </div>
-
     </div>
 
-    <div id="chef" class="chif-section ">
-        <div class="chef-content">
-            <h1 class="chef-heading">Cooked By The Best Chefs<br>In The World</h1>
-            <p class="chef-description">
-                Experience culinary excellence crafted by master chefs from around the globe.
-                Our team of culinary virtuosos brings together expertise, innovation, and passion
-                to create unforgettable dining experiences that redefine gastronomy.
+    <div id="chef" class="flex flex-col md:flex-row items-center justify-center w-full max-w-[1200px] mx-auto p-4 md:p-8 gap-6">
+        <div class="w-full md:w-1/2 text-center md:text-left">
+            <h2 class="text-2xl md:text-[32px] font-bold text-[#111] mb-4">Cooked By The Best Chefs<br>In The World</h2>
+            <p class="text-base md:text-[16px] text-[#6b7280] leading-[1.8] mb-6">
+                Experience culinary excellence crafted by master chefs from around the globe. Our team of culinary virtuosos brings together expertise, innovation, and passion to create unforgettable dining experiences that redefine gastronomy.
             </p>
-
-            <ul class="chef-features">
-                <li><i class="fas fa-check-square greencheck"></i> Savour culinary brilliance from master chefs
-                    worldwide.
+            <ul class="list-none p-0 m-0">
+                <li class="mb-4 text-[15px] text-[#333] flex items-center justify-center md:justify-start">
+                    <i class="fas fa-check-square text-[#34c759] mr-2 text-[18px]"></i> Savour culinary brilliance from master chefs worldwide.
                 </li>
-                <li><i class="fas fa-check-square pinkcheck"></i> Experience innovative creations with attention to
-                    detail.
+                <li class="mb-4 text-[15px] text-[#333] flex items-center justify-center md:justify-start">
+                    <i class="fas fa-check-square text-[#ff2d55] mr-2 text-[18px]"></i> Experience innovative creations with attention to detail.
                 </li>
-                <li><i class="fas fa-check-square bluecheck"></i> Enjoy dishes crafted with an unwavering passion for
-                    perfection.</li>
+                <li class="mb-4 text-[15px] text-[#333] flex items-center justify-center md:justify-start">
+                    <i class="fas fa-check-square text-[#007aff] mr-2 text-[18px]"></i> Enjoy dishes crafted with unwavering passion perfection.
+                </li>
             </ul>
         </div>
-
-        <div class="chef-image">
-            <div class="image-circle">
-                <img src="/chai aur code practices/Food landingpage task/images-food/chef.png" alt="Chef">
+        <div class="chef-image w-full md:w-1/2 mt-4 md:mt-0">
+            <div class="w-[300px] md:w-[350px] h-[300px] md:h-[350px] bg-orange rounded-full flex justify-center items-center overflow-hidden mx-auto">
+                <img src="/chai aur code practices/Food landingpage task/images-food/chef.png" alt="Chef" class="w-full h-full object-contain">
             </div>
         </div>
     </div>
-    <div class="chams">
-        <div class="chams-img"><img src="/chai aur code practices/food landingpage task/images-food/topping.png" alt="">
-        </div>
-    </div>
 
-    <div id="contact" class="slide-card animate-section">
-        <h2 class="slide-heading">What Our Customers Are <br> Saying</h2>
-        <p class="slide-subheading">
-            Discover firsthand experiences and testimonials from our valued patrons.
-            <br> Explore the feedback and reviews that showcase our commitment to
-            <br>quality, service, and customer satisfaction.
+    <div id="contact" class="w-full max-w-[650px] mx-auto p-4 md:p-8 text-center">
+        <h2 class="text-2xl md:text-[40px] font-bold mb-4">What Our Customers Are <br> Saying</h2>
+        <p class="text-base md:text-[16px] text-[#666] mb-6 leading-[1.5]">
+            Discover firsthand experiences and testimonials from our valued patrons. <br> Explore the feedback and reviews that showcase our commitment to <br> quality, service, and customer satisfaction.
         </p>
-
-        <div class="testimonial-container">
-            <div class="testimonial-card" id="testimonial-card">
-                <!-- Testimonials will be injected here by JavaScript -->
+        <div class="border-2 border-orange rounded-[20px] p-6 shadow-orange">
+            <div class="flex flex-col items-center gap-4 select-none" id="testimonial-card">
+                <!-- Testimonial content will be dynamically inserted here -->
             </div>
-
-            <div class="dots" id="dots"></div>
+            <div class="mt-4" id="dots"></div>
         </div>
     </div>
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-column">
-                <h2 class="footerlogo"><span class="highlight">Food</span>man</h2>
-                <p class="description">
-                    Embark on a gastronomic journey with FoodMan, <br>
-                    where every bite tells a story and every dish is crafted to perfection.
+
+    <footer class="bg-white p-8 md:p-12">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 max-w-[1200px] mx-auto">
+            <div class="flex flex-col">
+                <h2 class="text-[28px] font-semibold mb-2"><span class="text-orange">Food</span>man</h2>
+                <p class="text-[15px] text-[#666] leading-[1.6]">
+                    Embark on a gastronomic journey with FoodMan, <br> where every bite tells a story and every dish is crafted to perfection.
                 </p>
             </div>
-
-            <div class="footer-column">
-                <h3>Product</h3>
-                <ul>
-                    <li><a href="#">Menu</a></li>
-                    <li><a href="#">Specials</a></li>
-                    <li><a href="#">Meal Deals</a></li>
-                    <li><a href="#">Catering Options</a></li>
-                    <li><a href="#">Seasonal Offerings</a></li>
+            <div class="flex flex-col">
+                <h3 class="text-[18px] font-semibold mb-3">Product</h3>
+                <ul class="list-none">
+                    <li class="mb-2"><a href="#" class="text-[#666] text-[15px] no-underline hover:text-orange transition-colors">Menu</a></li>
+                    <li class="mb-2"><a href="#" class="text-[#666] text-[15px] no-underline hover:text-orange transition-colors">Specials</a></li>
+                    <li class="mb-2"><a href="#" class="text-[#666] text-[15px] no-underline hover:text-orange transition-colors">Meal Deals</a></li>
+                    <li class="mb-2"><a href="#" class="text-[#666] text-[15px] no-underline hover:text-orange transition-colors">Catering Options</a></li>
+                    <li class="mb-2"><a href="#" class="text-[#666] text-[15px] no-underline hover:text-orange transition-colors">Seasonal Offerings</a></li>
                 </ul>
             </div>
-
-            <div class="footer-column">
-                <h3>Information</h3>
-                <ul>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">Nutrition Information</a></li>
-                    <li><a href="#">Allergen Information</a></li>
+            <div class="flex flex-col">
+                <h3 class="text-[18px] font-semibold mb-3">Information</h3>
+                <ul class="list-none">
+                    <li class="mb-2"><a href="#" class="text-[#666] text-[15px] no-underline hover:text-orange transition-colors">AboutUs</a></li>
+                    <li class="mb-2"><a href="#" class="text-[#666] text-[15px] no-underline hover:text-orange transition-colors">ContactUs</a></li>
+                    <li class="mb-2"><a href="#" class="text-[#666] text-[15px] no-underline hover:text-orange transition-colors">Nutrition Information</a></li>
+                    <li class="mb-2"><a href="#" class="text-[#666] text-[15px] no-underline hover:text-orange transition-colors">Allergen Information</a></li>
                 </ul>
             </div>
-
-            <div class="footer-column">
-                <h3>Company</h3>
-                <ul>
-                    <li><a href="#">Our Story</a></li>
-                    <li><a href="#">Careers</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
+            <div class="flex flex-col">
+                <h3 class="text-[18px] font-semibold mb-3">Company</h3>
+                <ul class="list-none">
+                    <li class="mb-2"><a href="#" class="text-[#666] text-[15px] no-underline hover:text-orange transition-colors">Our Story</a></li>
+                    <li class="mb-2"><a href="#" class="text-[#666] text-[15px] no-underline hover:text-orange transition-colors">Careers</a></li>
+                    <li class="mb-2"><a href="#" class="text-[#666] text-[15px] no-underline hover:text-orange transition-colors">Terms of Service</a></li>
+                    <li class="mb-2"><a href="#" class="text-[#666] text-[15px] no-underline hover:text-orange transition-colors">Privacy Policy</a></li>
                 </ul>
             </div>
         </div>
-
-        <div class="copyright">
+        <div class="text-center text-[14px] text-[#666] mt-8">
             Copyright © 2024 All rights reserved.
         </div>
     </footer>
